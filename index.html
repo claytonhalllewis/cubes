@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>nums with legend</title>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+</head>
+<body>
+<h1>nums with legend</h1>
+<p>The triples of numbers on the Web page represent the orientation of 9 dice. The first number shows the number on the left face, the second is the number facing us, and the third is number on the face towards the bottom of the screen. When you flip a row, all the dice in that row are rotated 90 degrees around the horizontal axis running across the row. When you flip a column, all the dice in that column are rotated around the vertical axis running up and down the row. Challenge: can you make an arbitrary change in the faces that are showing, that is, the middle numbers? For example, can you make the middle die show 6, while all the others still show 2?</p>
+<table>
+<tr>
+<td onclick="rotH(this)">[1,2,3]</td>
+<td onclick="rotH(this)">[1,2,3]</td>
+<td onclick="rotH(this)">[1,2,3]</td>
+</tr>
+<tr>
+<td onclick="rotH(this)">[1,2,3]</td>
+<td onclick="rotH(this)">[1,2,3]</td>
+<td onclick="rotH(this)">[1,2,3]</td>
+</tr>
+<tr>
+<td onclick="rotH(this)">[1,2,3]</td>
+<td onclick="rotH(this)">[1,2,3]</td>
+<td onclick="rotH(this)">[1,2,3]</td>
+</tr>
+</table>
+<script>
+function rotH(element) {
+    var table = document.getElementsByTagName("table")[0];
+    var tds = table.rows[0].getElementsByTagName("td");
+    var td = element.innerHTML;
+    var split = td.split(",");
+    var a = parseInt(split[0].substring(1));
+    var b = parseInt(split[1]);
+    var c = parseInt(split[2].substring(0,split[2].length-1));
+    var d = 7-c;
+    var e = [a,d,b];
+    element.innerHTML = "[" + e[0] + "," + e[1] + "," + e[2] + "]";
+}
+function rotHRow(row) {
+    var table = document.getElementsByTagName("table")[0];
+    var tds = table.rows[row].getElementsByTagName("td");
+    for (var i = 0; i < tds.length; i++) {
+        rotH(tds[i]);
+    }
+}
+function rotV(element) {
+    var table = document.getElementsByTagName("table")[0];
+    var tds = table.rows[0].getElementsByTagName("td");
+    var td = element.innerHTML;
+    var split = td.split(",");
+    var a = parseInt(split[0].substring(1));
+    var b = parseInt(split[1]);
+    var c = parseInt(split[2].substring(0,split[2].length-1));
+    var d = 7-b;
+    var e = [d,a,c];
+    element.innerHTML = "[" + e[0] + "," + e[1] + "," + e[2] + "]";
+}
+function rotVColumn(col) {
+    var table = document.getElementsByTagName("table")[0];
+    var tds = table.getElementsByTagName("td");
+    for (var i = 0; i < tds.length; i++) {
+        if (i % 3 == col) {
+            rotV(tds[i]);
+        }
+    }
+}
+</script>
+<button onclick="rotHRow(0)">Flip Row 0</button>
+<button onclick="rotHRow(1)">Flip Row 1</button>
+<button onclick="rotHRow(2)">Flip Row 2</button>
+<button onclick="rotVColumn(0)">Flip Col 0</button>
+<button onclick="rotVColumn(1)">Flip Col 1</button>
+<button onclick="rotVColumn(2)">Flip Col 2</button>
+</body>
+</html>
